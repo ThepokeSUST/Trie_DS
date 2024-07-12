@@ -33,34 +33,60 @@ class node{
    void insert_(string str,node* newroot){
       
       if(str.size()==0){
-         root->terminate=true;
+         newroot->terminate=true;
          return ;
       }
       int idx=str[0]-65;
-      if(root->arr[idx]==NULL){
-         root->arr[idx]=new node(str[0]);
+      if(newroot->arr[idx]==NULL){
+         newroot->arr[idx]=new node(str[0]);
       }
       
-         insert_(str.substr(1),root->arr[idx]);
+         insert_(str.substr(1),newroot->arr[idx]);
       
+   }
+
+   bool search_(string str,node* newroot){
+        
+        if(str.size()==0){
+         return newroot->terminate;
+        }
+
+        int idx=str[0]-65;
+
+        if(newroot->arr[idx]==NULL) return false;
+
+        return search_(str.substr(1),newroot->arr[idx]);
    }
    public:
     void insert(string str){
       insert_(str,root);
     }
+
+  bool search(string str){
+      return search_(str,root);
+  }  
        
  };
 
 int main(){
      int n;
 
-     cin>>n;
+     cin>> n;
    trie word;
      while(n--){
         string str;
-        cin>>str;
+        cin >> str;
        word.insert(str);
        
+     }
+
+     int m;
+     cin>>m;
+     while(m--){
+     string str;
+     cin>>str;
+     cout<<word.search(str)<<endl;
+
      }
       
 }
